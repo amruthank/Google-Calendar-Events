@@ -7,4 +7,5 @@
 
 
 Above APIs are the back-end APIs used for the create,delete,edit and show all google calendar events.
+
 Django 1.9 and python 2.7    
