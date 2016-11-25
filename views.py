@@ -175,23 +175,10 @@ def createCalenderEvent(request):
 		participant.save()
 
 	resp = '<?xml version="1.0" encoding="UTF-8"?>\r\n'
-	resp += '<CalendarEvent>\r\n'
-	resp += _add_xml_field("status", event['status'],1)
-	resp += _add_xml_field("InterviewType", event['summary'],1)
-	resp += _add_xml_field("Description", event['description'],1)
-	resp += _add_xml_field("StartDate", event['start']['dateTime'],1)
-	resp += _add_xml_field("EndDate", event['end']['dateTime'],1)
-	if calHandler.params.has_key("location"):
-		resp += _add_xml_field("location", event['location'],1)
-	else:
-		resp += '\t\t<location/>\r\n'
-
-	resp += '\t<Attendees>\r\n'
-	for key in event['attendees']:
-		resp += _add_xml_field("attendee", key["email"],2)
-	resp += '\t</Attendees>\r\n'
-
-	resp += '</CalendarEvent>\r\n'
+	resp += '<response>\r\n'
+	resp += _add_xml_field("EventId", event["id"] ,1)
+	resp += '\t<success>%s</success>\r\n' % ("Successfully created calendar event")
+	resp += '</response>\r\n'
 	return HttpResponse(resp, content_type="text/xml")	
 #End of createCalenderEvent()
 
@@ -312,16 +299,9 @@ def deleteCalendarEvent(request,event_id):
 def showMyEvents(request):
 	logr.info("Incoming request to get all my calendar events by %s"%request.user.email)
 
-	try:	
-		corpUser = CorpUser.objects.get(user_id = request.user.id)
-	except Exception:
-		return HttpResponse(BAD_REQUEST % "CorUser ID", content_type="text/xml")
-
-	particiapnts = Participant.objects.filter(user_id = corpUser.user.id)
+	particiapnts = Participant.objects.filter(user_id = request.user.id)
 	resp = '<?xml version="1.0" encoding="UTF-8"?>\r\n'
 	resp += '<CalendarEvents>\r\n'
-	resp += _add_xml_field("CropId", corpUser.id,1)
-	resp += _add_xml_field("CorpEmail", corpUser.user.email ,1)
 	for participant in particiapnts:
 		meeting = Meeting.objects.get(id = participant.meeting.id)
 		resp += '\t<Meeting>\r\n'
