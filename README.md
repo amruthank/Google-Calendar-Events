@@ -1,4 +1,4 @@
-#Django APIs for Google-Calendar-Events
+Django APIs for Google-Calendar-Events
 
 1. createCalenderEvent API to create a new calendar event. Input will be passed using the CalenderHandler() in the XML format.
 2. editCalendarEvent API to create a new calendar event. Input will be passed using the CalenderHandler() in the XML format.
