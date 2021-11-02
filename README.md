@@ -6,6 +6,6 @@ Django APIs for Google-Calendar-Events
 4. showMyEvents API display all the calendar events created by the user.
 
 
-Above APIs are the back-end APIs used for the create,delete,edit and show all google calendar events.
+Above APIs are the back-end APIs used to create,delete,edit and show all google calendar events.
 
 Django 1.9 and python 2.7    
